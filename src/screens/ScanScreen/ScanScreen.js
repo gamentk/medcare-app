@@ -4,6 +4,7 @@ import {
     Text,
     StyleSheet
 } from 'react-native';
+import QRCodeScanner from 'react-native-qrcode-scanner';
 import { RNCamera } from 'react-native-camera';
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -14,6 +15,10 @@ import AntIcon from 'react-native-vector-icons/AntDesign';
 import { COLORS, SIZES, FONTS } from '../../constants';
 
 const ScanScreen = () => {
+    function onSuccess(e) {
+        console.log(e.data);
+    };
+
     // Render Header
     function renderHeader() {
         return (
@@ -52,20 +57,19 @@ const ScanScreen = () => {
 
     return (
         <View style={styles.container}>
-            <RNCamera
-                style={styles.preview}
-                type={RNCamera.Constants.Type.back}
+            {renderHeader()}
+            <QRCodeScanner
+                onRead={onSuccess}
                 flashMode={RNCamera.Constants.FlashMode.off}
-                androidCameraPermissionOptions={{
-                    title: 'การขออนุญาตใช้กล้อง',
-                    message: 'MedCare จำเป็นต้องใช้กล้องเพื่อแสกน QR Code',
-                    buttonPositive: 'ตกลง',
-                    buttonNegative: 'ยกเลิก'
+                containerStyle={{
+                    position: 'absolute',
+                    zIndex: -1
                 }}
-                captureAudio={false}
-            >
-                {renderHeader()}
-            </RNCamera>
+                cameraStyle={{
+                    height: SIZES.height,
+                    width: SIZES.width
+                }}
+            />
         </View>
     );
 }

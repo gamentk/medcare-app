@@ -16,6 +16,9 @@ import {
     ReportStackScreen
 } from '../navigators';
 
+// Screens
+import { ScanTestScreen } from '../screens';
+
 // Constants
 import {
     COLORS,
@@ -83,6 +86,10 @@ const AppStackScreen = () => {
                         </View>
                     )
                 }}
+            />
+            <AppStack.Screen
+                name="ScanTest"
+                component={ScanTestScreen}
             />
         </AppStack.Navigator>
     );
